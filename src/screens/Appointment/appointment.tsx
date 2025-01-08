@@ -93,7 +93,7 @@ const TaskCard = ({ task }: any) => (
   </View>
 );
 
-export default function App() {
+export default function Test() {
   const [scheduledTasks, setScheduledTasks] = useState([]);
 
   useEffect(() => {
