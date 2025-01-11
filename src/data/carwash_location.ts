@@ -12,9 +12,9 @@ const CARWASH_DATA = [
       { user: "Sara", rating: 5, comment: "Very satisfied with the service." },
     ],
     services: [
-      ServiceType.CAR_WASH,
-      ServiceType.INTERIOR_WASH,
-      ServiceType.CAR_SERVICE,
+      { service: ServiceType.CAR_WASH, price: 20, duration: 3 },
+      { service: ServiceType.INTERIOR_WASH, price: 30, duration: 2 },
+      { service: ServiceType.CAR_SERVICE, price: 20, duration: 2 },
     ],
   },
   {
@@ -36,9 +36,9 @@ const CARWASH_DATA = [
       },
     ],
     services: [
-      ServiceType.CAR_WASH,
-      ServiceType.CAR_POLISH,
-      ServiceType.TYRE_CARE,
+      { service: ServiceType.CAR_WASH, price: 120, duration: 1 },
+      { service: ServiceType.CAR_POLISH, price: 180, duration: 2 },
+      { service: ServiceType.TYRE_CARE, price: 100, duration: 3 },
     ],
   },
   {
@@ -52,9 +52,9 @@ const CARWASH_DATA = [
       { user: "Dan", rating: 4, comment: "Great experience overall." },
     ],
     services: [
-      ServiceType.CAR_POLISH,
-      ServiceType.INTERIOR_WASH,
-      ServiceType.CAR_SERVICE,
+      { service: ServiceType.CAR_POLISH, price: 170, duration: 1 },
+      { service: ServiceType.INTERIOR_WASH, price: 140, duration: 2 },
+      { service: ServiceType.CAR_SERVICE, price: 220, duration: 2 },
     ],
   },
   {
@@ -72,9 +72,9 @@ const CARWASH_DATA = [
       { user: "Fahmi", rating: 4, comment: "Nice and friendly service." },
     ],
     services: [
-      ServiceType.CAR_WASH,
-      ServiceType.CAR_SERVICE,
-      ServiceType.TYRE_CARE,
+      { service: ServiceType.CAR_WASH, price: 110, duration: 2 },
+      { service: ServiceType.CAR_SERVICE, price: 210, duration: 1 },
+      { service: ServiceType.TYRE_CARE, price: 120, duration: 1 },
     ],
   },
   {
@@ -95,7 +95,10 @@ const CARWASH_DATA = [
         comment: "Highly recommended for anyone nearby.",
       },
     ],
-    services: [ServiceType.CAR_POLISH, ServiceType.INTERIOR_WASH],
+    services: [
+      { service: ServiceType.CAR_POLISH, price: 190, duration: 2 },
+      { service: ServiceType.INTERIOR_WASH, price: 160, duration: 3 },
+    ],
   },
   {
     id: 6,
@@ -109,9 +112,9 @@ const CARWASH_DATA = [
       { user: "Sophia", rating: 4, comment: "Would definitely return." },
     ],
     services: [
-      ServiceType.CAR_WASH,
-      ServiceType.CAR_SERVICE,
-      ServiceType.TYRE_CARE,
+      { service: ServiceType.CAR_WASH, price: 130, duration: 3 },
+      { service: ServiceType.CAR_SERVICE, price: 230, duration: 1 },
+      { service: ServiceType.TYRE_CARE, price: 110, duration: 1 },
     ],
   },
 ];

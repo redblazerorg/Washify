@@ -11,3 +11,5 @@ export const ItemEnum = {
   Location: "Location",
   Appointment: "Appointment",
 };
+
+export type ServiceType = keyof typeof ServiceType;

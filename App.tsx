@@ -6,11 +6,14 @@ import { Ionicons } from "@expo/vector-icons";
 import "react-native-gesture-handler";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import AppNavigation from "./src/navigations/AppNavigation";
+import { AppointmentsProvider } from "./src/context/AppointmentContext";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <AppNavigation />
+      <AppointmentsProvider>
+        <AppNavigation />
+      </AppointmentsProvider>
     </NavigationContainer>
   );
 }
