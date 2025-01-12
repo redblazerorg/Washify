@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ScrollView,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
@@ -167,11 +168,11 @@ const LocationAvailability = () => {
         }}
       >
         <TouchableOpacity onPress={() => handleAvailableLocation()}>
-          <Text>Available Car Wash Location</Text>
+          <Text>Services Available</Text>
         </TouchableOpacity>
       </View>
 
-      <View
+      <ScrollView
         style={{
           position: "absolute",
           backgroundColor: "whitesmoke",
@@ -180,26 +181,35 @@ const LocationAvailability = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          height: openSheet ? height * 0.9 : 0,
+          height: openSheet ? height * 0.45 : 0,
         }}
       >
-        <TouchableOpacity
-          style={{
-            alignSelf: "flex-end",
-            width: 60,
-            height: 30,
-            alignItems: "center",
-          }}
-          onPress={() => setOpenSheet(!openSheet)}
-        >
-          <Ionicons name="close" size={30} />
-        </TouchableOpacity>
-
         {selectedMarker && (
           <View style={styles.markerDetails}>
-            <Text style={styles.sheetTitle}>{selectedMarker.title}</Text>
-            {/* Add more marker details here */}
-
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                // height: 50,
+                width: width * 0.9,
+              }}
+            >
+              <Text style={styles.sheetTitle}>{selectedMarker.title}</Text>
+              <TouchableOpacity
+                style={
+                  {
+                    // alignSelf: "flex-end",
+                    // width: 60,
+                    // height: 30,
+                    // alignItems: "center",
+                  }
+                }
+                onPress={() => setOpenSheet(!openSheet)}
+              >
+                <Ionicons name="close" size={30} />
+              </TouchableOpacity>
+            </View>
             <TouchableOpacity
               onPress={() =>
                 navigateToLocation(
@@ -208,13 +218,13 @@ const LocationAvailability = () => {
                 )
               }
             >
-              <Text style={styles.sheetContent}>
+              {/* <Text style={styles.sheetContent}>
                 Latiude: {selectedMarker.latitude}
                 {"\n"}
                 Longitude: {selectedMarker.longitude}
-              </Text>
+              </Text> */}
               <Text style={{ fontWeight: "bold", fontSize: 18 }}>
-                Services:
+                Services Available
               </Text>
               {selectedMarker.services.map((service: any, index: number) => (
                 <TouchableOpacity
@@ -229,8 +239,8 @@ const LocationAvailability = () => {
                   }}
                 >
                   <Text>Service: {service.service}</Text>
-                  <Text>Price: {service.price} USD</Text>
-                  <Text>Duration: {service.duration} mins</Text>
+                  <Text>Price: RM {service.price}</Text>
+                  <Text>Duration: {service.duration} hours</Text>
                 </TouchableOpacity>
               ))}
 
@@ -250,15 +260,17 @@ const LocationAvailability = () => {
             </TouchableOpacity>
           </View>
         )}
-      </View>
+      </ScrollView>
       {openFloatingLocation && (
         <View style={styles.floatingCard}>
-          <Text style={styles.cardText}>Floating Card</Text>
+          <Text style={styles.cardText}>Place</Text>
           {CARWASH_DATA.map((data) => (
             <Text
               key={data.id}
               onPress={() => {
                 navigateToLocation(data.latitude, data.longitude);
+                handleAvailableLocation();
+                handleMarkerPress(data);
               }}
             >
               {data.title}

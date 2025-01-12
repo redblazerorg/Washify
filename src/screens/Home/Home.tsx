@@ -19,11 +19,36 @@ const Home = ({ navigation }: { navigation: any }) => {
   const width = Dimensions.get("window").width;
 
   const services = [
-    { key: "CAR_WASH", icon: "car-sport-outline" },
-    { key: "CAR_POLISH", icon: "color-palette-outline" },
-    { key: "INTERIOR_WASH", icon: "water-outline" },
-    { key: "CAR_SERVICE", icon: "construct-outline" },
-    { key: "TYRE_CARE", icon: "speedometer-outline" },
+    {
+      key: "CAR_WASH",
+      title: "Car Wash",
+      icon: "car-sport-outline",
+      color: "#007AFF",
+    },
+    {
+      key: "CAR_POLISH",
+      title: "Car Polish",
+      icon: "color-palette-outline",
+      color: "#007AFF",
+    },
+    {
+      key: "INTERIOR_WASH",
+      title: "Interior Wash",
+      icon: "water-outline",
+      color: "#007AFF",
+    },
+    {
+      key: "CAR_SERVICE",
+      title: "Car Service",
+      icon: "construct-outline",
+      color: "#007AFF",
+    },
+    {
+      key: "TYRE_CARE",
+      title: "Tyre Care",
+      icon: "speedometer-outline",
+      color: "#007AFF",
+    },
   ];
 
   const [openFloatingLocation, setOpenFloatingLocation] =
@@ -33,7 +58,7 @@ const Home = ({ navigation }: { navigation: any }) => {
     setOpenFloatingLocation(!openFloatingLocation);
   };
 
-  const ServiceCard = ({ title, icon, onPress }: any) => (
+  const ServiceCard = ({ title, icon, color, onPress }: any) => (
     <TouchableOpacity
       style={{
         flexDirection: "row",
@@ -58,13 +83,7 @@ const Home = ({ navigation }: { navigation: any }) => {
           marginRight: 16,
         }}
       >
-        <Image
-          source={icon}
-          style={{
-            width: 40,
-            height: 40,
-          }}
-        />
+        <Ionicons name={icon} size={24} color={color} />
       </View>
       <Text style={{ flex: 1, fontSize: 16, color: "#333" }}>{title}</Text>
       <Text
@@ -124,8 +143,9 @@ const Home = ({ navigation }: { navigation: any }) => {
           keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
             <ServiceCard
-              title={item.key}
+              title={item.title}
               icon={item.icon}
+              color={item.color}
               onPress={() => handlePress(item.key)}
             />
           )}
@@ -144,7 +164,7 @@ const Home = ({ navigation }: { navigation: any }) => {
           }}
         >
           <TouchableOpacity onPress={() => handleAvailableLocation()}>
-            <Ionicons name="settings" size={30} />
+            <Ionicons name="settings" size={30} color="#007AFF" />
           </TouchableOpacity>
         </View>
         {openFloatingLocation && (
@@ -153,7 +173,7 @@ const Home = ({ navigation }: { navigation: any }) => {
               style={{
                 display: "flex",
                 justifyContent: "flex-end",
-                width: width * 0.3,
+                width: width * 0.35,
                 alignSelf: "flex-end",
                 backgroundColor: "white",
                 padding: 15,
@@ -175,14 +195,38 @@ const Home = ({ navigation }: { navigation: any }) => {
                     switch (e) {
                       case ItemEnum.Home:
                         return (
-                          <View style={{ paddingVertical: 10 }}>
+                          <View
+                            style={{
+                              paddingVertical: 10,
+                              alignItems: "center",
+                            }}
+                          >
                             <Ionicons
                               onPress={() => {}}
                               name="star"
                               size={24}
-                              color="gold"
+                              color="#007AFF"
                             />
                             <Text>Unknown</Text>
+                          </View>
+                        );
+                      case ItemEnum.Profile:
+                        return (
+                          <View
+                            style={{
+                              paddingVertical: 10,
+                              alignItems: "center",
+                            }}
+                          >
+                            <Ionicons
+                              onPress={() => {
+                                navigation.navigate("Profile");
+                              }}
+                              name="person"
+                              size={24}
+                              color="#007AFF"
+                            />
+                            <Text>Profile</Text>
                           </View>
                         );
                       case ItemEnum.Location:
@@ -192,11 +236,16 @@ const Home = ({ navigation }: { navigation: any }) => {
                               navigation.navigate("LocationAvailability");
                             }}
                           >
-                            <View style={{ paddingVertical: 10 }}>
+                            <View
+                              style={{
+                                paddingVertical: 10,
+                                alignItems: "center",
+                              }}
+                            >
                               <Ionicons
                                 name="location"
                                 size={24}
-                                color="gold"
+                                color="#007AFF"
                               />
                               <Text>Location</Text>
                             </View>
@@ -204,20 +253,25 @@ const Home = ({ navigation }: { navigation: any }) => {
                         );
                       case ItemEnum.Appointment:
                         return (
-                          <View style={{ paddingVertical: 10 }}>
-                            <TouchableOpacity
-                              onPress={() => {
-                                navigation.navigate("Appointment");
+                          <TouchableOpacity
+                            onPress={() => {
+                              navigation.navigate("Appointment");
+                            }}
+                          >
+                            <View
+                              style={{
+                                paddingVertical: 10,
+                                alignItems: "center",
                               }}
                             >
                               <Ionicons
                                 name="business"
                                 size={24}
-                                color="gold"
+                                color="#007AFF"
                               />
                               <Text>Appointment</Text>
-                            </TouchableOpacity>
-                          </View>
+                            </View>
+                          </TouchableOpacity>
                         );
                       default:
                         return (

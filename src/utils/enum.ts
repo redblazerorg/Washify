@@ -8,8 +8,14 @@ export const ServiceType = {
 
 export const ItemEnum = {
   Home: "Home",
+  Profile: "Profile",
   Location: "Location",
   Appointment: "Appointment",
+};
+
+export const ItemProfileEnum = {
+  Edit: "Edit",
+  Logout: "Logout",
 };
 
 export type ServiceType = keyof typeof ServiceType;
