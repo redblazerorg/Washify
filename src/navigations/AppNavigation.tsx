@@ -13,6 +13,7 @@ import Profile from "../screens/Profile/Profile";
 import SignIn from "../screens/Auth/SignIn";
 import SignUp from "../screens/Auth/SignUp";
 import ForgotPassword from "../screens/Auth/ForgotPassword";
+import SelectedService from "../screens/SelectedService/SelectedService";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -70,6 +71,14 @@ const AppNavigation = () => {
               //   />
               // ),
             })}
+          />
+          <Stack.Screen
+            name="SelectedService"
+            component={SelectedService}
+            options={{
+              headerTitle: "Service Available",
+              headerTitleAlign: "center",
+            }}
           />
           <Stack.Screen
             name="Profile"

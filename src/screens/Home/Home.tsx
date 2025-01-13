@@ -97,8 +97,8 @@ const Home = ({ navigation }: { navigation: any }) => {
     </TouchableOpacity>
   );
 
-  const handlePress = (service: any) => {
-    console.log(`Selected service: ${service}`);
+  const handlePress = (service: string) => {
+    navigation.navigate("SelectedService", { service });
   };
 
   return (
@@ -146,7 +146,7 @@ const Home = ({ navigation }: { navigation: any }) => {
               title={item.title}
               icon={item.icon}
               color={item.color}
-              onPress={() => handlePress(item.key)}
+              onPress={() => handlePress(item.title)}
             />
           )}
           contentContainerStyle={{

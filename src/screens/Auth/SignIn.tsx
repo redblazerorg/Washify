@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
-import { View, Image, TextInput, TouchableOpacity, Text, StyleSheet, ScrollView } from 'react-native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useAuth } from '../../context/AuthContext';
+import React, { useState } from "react";
+import {
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useAuth } from "../../context/AuthContext";
 
 // Define navigation param list
 export type RootStackParamList = {
@@ -13,23 +21,24 @@ export type RootStackParamList = {
   LocationAvailability: undefined;
   Appointment: undefined;
   Settings: undefined;
+  SelectedService: { service: string };
 };
 
 // Define navigation prop type
 type SignInScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  'SignIn'
+  "SignIn"
 >;
 
 type Props = {
   navigation: SignInScreenNavigationProp;
 };
 
-const logo = require('../../../assets/washifylogo.png')
+const logo = require("../../../assets/washifylogo.png");
 
 export default function SignIn({ navigation }: Props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { login, isLoading } = useAuth();
 
   const handleLogin = async () => {
@@ -41,10 +50,13 @@ export default function SignIn({ navigation }: Props) {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.scrollContent}
+    >
       <View style={styles.topNav}>
-          <Image source={logo} style={{ width: 240, resizeMode: 'contain' }} />
+        <Image source={logo} style={{ width: 240, resizeMode: "contain" }} />
       </View>
 
       <TextInput
@@ -62,32 +74,30 @@ export default function SignIn({ navigation }: Props) {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <TouchableOpacity 
-        onPress={() => navigation.navigate('ForgotPassword')}
-      >
+      <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
         <Text style={styles.link}>Forgot Password?</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.button}
         onPress={handleLogin}
         disabled={isLoading}
       >
         <Text style={styles.buttonText}>
-          {isLoading ? 'Loading...' : 'Sign In'}
+          {isLoading ? "Loading..." : "Sign In"}
         </Text>
       </TouchableOpacity>
 
       <View style={styles.bottomContainer}>
         <View style={styles.optionContainer}>
           <Text style={styles.optionText}>Don't have account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
             <Text style={styles.optionTextLink}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   scrollContent: {
@@ -98,7 +108,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   topNav: {
-    alignItems: 'center',
+    alignItems: "center",
     height: 60,
     marginTop: 8,
     marginBottom: 8,
@@ -107,60 +117,60 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     padding: 10,
     marginBottom: 10,
     borderRadius: 5,
   },
   button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: "#007AFF",
     padding: 15,
     borderRadius: 5,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
   },
   link: {
-    color: '#000',
-    textAlign: 'right',
+    color: "#000",
+    textAlign: "right",
     marginBottom: 30,
   },
   bottomContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     gap: 12,
     marginTop: 8,
   },
   buttonMain: {
-    width: '100%',
+    width: "100%",
     paddingVertical: 16,
     paddingHorizontal: 24,
     borderRadius: 28,
-    backgroundColor: '#2ED573',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#2ED573",
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonTextMain: {
-    color: '#fff',
-    textAlign: 'center',
+    color: "#fff",
+    textAlign: "center",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   optionContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 4,
   },
   optionText: {
     fontSize: 16,
   },
   optionTextLink: {
-    color: '#007AFF',
+    color: "#007AFF",
     fontSize: 16,
   },
   error: {
-    color: 'red',
-    textAlign: 'center',
+    color: "red",
+    textAlign: "center",
   },
 });
