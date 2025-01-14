@@ -7,7 +7,7 @@ export const ServiceType = {
 };
 
 export const ItemEnum = {
-  Home: "Home",
+  // Home: "Home",
   Profile: "Profile",
   Location: "Location",
   Appointment: "Appointment",

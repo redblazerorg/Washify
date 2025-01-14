@@ -140,6 +140,7 @@ const Home = ({ navigation }: { navigation: any }) => {
         </View>
         <FlatList
           data={services}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
             <ServiceCard
@@ -193,23 +194,23 @@ const Home = ({ navigation }: { navigation: any }) => {
                 <View key={index}>
                   {(() => {
                     switch (e) {
-                      case ItemEnum.Home:
-                        return (
-                          <View
-                            style={{
-                              paddingVertical: 10,
-                              alignItems: "center",
-                            }}
-                          >
-                            <Ionicons
-                              onPress={() => {}}
-                              name="star"
-                              size={24}
-                              color="#007AFF"
-                            />
-                            <Text>Unknown</Text>
-                          </View>
-                        );
+                      // case ItemEnum.Home:
+                      //   return (
+                      //     <View
+                      //       style={{
+                      //         paddingVertical: 10,
+                      //         alignItems: "center",
+                      //       }}
+                      //     >
+                      //       <Ionicons
+                      //         onPress={() => {}}
+                      //         name="star"
+                      //         size={24}
+                      //         color="#007AFF"
+                      //       />
+                      //       <Text>Unknown</Text>
+                      //     </View>
+                      //   );
                       case ItemEnum.Profile:
                         return (
                           <View

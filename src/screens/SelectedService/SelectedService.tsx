@@ -23,6 +23,7 @@ const SelectedService = ({ route }: { route: SelectedServiceRouteProp }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Selected Service: {service}</Text>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={filteredData}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
