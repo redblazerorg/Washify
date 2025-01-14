@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Button, Text, StyleSheet, Platform } from "react-native";
+import {
+  View,
+  Button,
+  Text,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import * as Calendar from "expo-calendar";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -49,8 +56,6 @@ const CalendarPicker = ({ onDateChange, initialDate, style }: any) => {
 
   return (
     <View style={[styles.container, style]}>
-      <Button title="Select Date" onPress={() => setShowPicker(true)} />
-
       {showPicker && (
         <DateTimePicker
           value={selectedDate || minDate}
@@ -62,16 +67,46 @@ const CalendarPicker = ({ onDateChange, initialDate, style }: any) => {
         />
       )}
 
-      {selectedDate && (
-        <View style={styles.resultContainer}>
-          <Text style={styles.dateText}>
-            Selected Date: {selectedDate.toLocaleDateString()}
-          </Text>
-          <Text style={styles.daysText}>
-            Days from today: {getDaysDifference(selectedDate)}
-          </Text>
-        </View>
-      )}
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <TouchableOpacity onPress={() => setShowPicker(true)}>
+          <View
+            style={{
+              backgroundColor: "#007AFF",
+              borderRadius: 12,
+              width: 100,
+              height: 40,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "white", textAlign: "center" }}>
+              Select Date
+            </Text>
+          </View>
+        </TouchableOpacity>
+        {selectedDate && (
+          <View
+            style={{
+              marginLeft: 10,
+              flexDirection: "column",
+            }}
+          >
+            <Text style={{ fontSize: 16, color: "#000" }}>
+              Selected Date: {selectedDate.toLocaleDateString()}
+            </Text>
+            <Text style={{ fontSize: 14, color: "#666" }}>
+              Days from today: {getDaysDifference(selectedDate)}
+            </Text>
+          </View>
+        )}
+      </View>
     </View>
   );
 };

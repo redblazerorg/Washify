@@ -126,6 +126,14 @@ const LocationAvailability = () => {
     addAppointment(newAppointment);
   };
 
+  const defaultDate = selectedDateInfo?.date
+    ? new Date(selectedDateInfo.date)
+    : (() => {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        return tomorrow;
+      })();
+
   //views
   return (
     <View style={styles.container}>
@@ -210,41 +218,41 @@ const LocationAvailability = () => {
                 <Ionicons name="close" size={30} />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() =>
                 navigateToLocation(
                   selectedMarker.latitude,
                   selectedMarker.longitude
                 )
               }
-            >
-              {/* <Text style={styles.sheetContent}>
+            > */}
+            {/* <Text style={styles.sheetContent}>
                 Latiude: {selectedMarker.latitude}
                 {"\n"}
                 Longitude: {selectedMarker.longitude}
               </Text> */}
-              <Text style={{ fontWeight: "bold", fontSize: 18 }}>
-                Services Available
-              </Text>
-              {selectedMarker.services.map((service: any, index: number) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => setSelectedService(service)}
-                  style={{
-                    padding: 10,
-                    marginVertical: 5,
-                    borderWidth: 1,
-                    borderColor: selectedService === service ? "blue" : "gray",
-                    borderRadius: 5,
-                  }}
-                >
-                  <Text>Service: {service.service}</Text>
-                  <Text>Price: RM {service.price}</Text>
-                  <Text>Duration: {service.duration} hours</Text>
-                </TouchableOpacity>
-              ))}
+            <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+              Services Available
+            </Text>
+            {selectedMarker.services.map((service: any, index: number) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => setSelectedService(service)}
+                style={{
+                  padding: 10,
+                  marginVertical: 5,
+                  borderWidth: 1,
+                  borderColor: selectedService === service ? "#007AFF" : "gray",
+                  borderRadius: 5,
+                }}
+              >
+                <Text>Service: {service.service}</Text>
+                <Text>Price: RM {service.price}</Text>
+                <Text>Duration: {service.duration} hours</Text>
+              </TouchableOpacity>
+            ))}
 
-              {/* {selectedService && (
+            {/* {selectedService && (
                 <View style={{ marginTop: 20 }}>
                   <Text style={{ fontWeight: "bold" }}>Selected Service:</Text>
                   <Text>Service: {selectedService.service}</Text>
@@ -252,12 +260,16 @@ const LocationAvailability = () => {
                   <Text>Duration: {selectedService.duration} mins</Text>
                 </View>
               )} */}
-              <CalendarPicker
-                onDateChange={handleDateChange}
-                initialDate={selectedDateInfo?.date}
-              />
-              <Button title="Add Appointment" onPress={handleAdd} />
-            </TouchableOpacity>
+            <CalendarPicker
+              onDateChange={handleDateChange}
+              initialDate={defaultDate}
+            />
+            <Button
+              color={"#007AFF"}
+              title="Add Appointment"
+              onPress={handleAdd}
+            />
+            {/* </TouchableOpacity> */}
           </View>
         )}
       </ScrollView>

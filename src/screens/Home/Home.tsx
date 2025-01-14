@@ -140,6 +140,7 @@ const Home = ({ navigation }: { navigation: any }) => {
         </View>
         <FlatList
           data={services}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
             <ServiceCard
