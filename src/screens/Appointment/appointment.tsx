@@ -6,8 +6,14 @@ import {
   ScrollView,
   Dimensions,
   SafeAreaView,
+  Modal,
+  TextInput,
+  TouchableOpacity,
 } from "react-native";
 import { useAppointments } from "../../context/AppointmentContext";
+import { useAuth } from "../../context/AuthContext";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CARWASH_DATA from '../../data/carwash_location';
 // import appointments from "../../data/schedule";
 
 const { width } = Dimensions.get("window");
@@ -34,23 +40,146 @@ const TaskTimeline = ({ task }: any) => {
   );
 };
 
-const TaskCard = ({ task }: any) => (
-  <View style={styles.taskCard}>
-    <View style={styles.taskCardContent}>
-      <View>
-        <Text style={styles.taskTitle}>{task.job_description}</Text>
-        <Text style={styles.taskDetail}>
-          Duration: {task.duration}h | Deadline: {task.deadline}h
-        </Text>
-        <Text style={styles.taskDetail}>Laxity: {task.laxity}h</Text>
+const TaskCard = ({ task }: any) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const { user } = useAuth();
+
+  const handleSubmitReview = () => {
+    if (rating === 0) {
+      alert('Please select a rating');
+      return;
+    }
+    
+    alert('Review submitted successfully!');
+    setModalVisible(false);
+    setRating(0);
+    setComment('');
+  };
+
+  // const handleSubmitReview = async () => {
+  //   if (rating === 0) {
+  //     alert('Please select a rating');
+  //     return;
+  //   }
+
+  //   try {
+  //     // Get existing carwash data
+  //     const carwashDataJson = await AsyncStorage.getItem('carwash_data');
+  //     // console.log('Current carwash data:', carwashDataJson);
+
+  //     let carwashData = carwashDataJson ? JSON.parse(carwashDataJson) : CARWASH_DATA;
+
+  //     // Verify we have carwash_id
+  //     // if (!task.carwash_id) {
+  //     //   alert('Cannot find carwash ID for this task');
+  //     //   console.log('Task missing carwash_id:', task);
+  //     //   return;
+  //     // }
+
+  //     // Find the carwash and add the review
+  //     const carwashIndex = carwashData.findIndex((cw: any) => cw.id === task.carwash_id);
+  //     if (carwashIndex !== -1) {
+  //       const newReview = {
+  //         user: user?.name || 'Anonymous',
+  //         rating,
+  //         comment,
+  //         date: new Date().toISOString()
+  //       };
+
+  //       carwashData[carwashIndex].reviews.push(newReview);
+  //       await AsyncStorage.setItem('carwash_data', JSON.stringify(carwashData));
+        
+  //       setModalVisible(false);
+  //       setRating(0);
+  //       setComment('');
+  //       alert('Review submitted successfully!');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error submitting review:', error);
+  //     alert('Failed to submit review');
+  //   }
+  // };
+
+    const StarRating = () => (
+      <View style={styles.starContainer}>
+        {[1, 2, 3, 4, 5].map((star) => (
+          <TouchableOpacity
+            key={star}
+            onPress={() => setRating(star)}
+          >
+            <Text style={[
+              styles.starText,
+              { color: star <= rating ? '#FFD700' : '#CCCCCC' }
+            ]}>
+              ★
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
-      <View style={styles.taskTiming}>
-        <Text style={styles.taskDetail}>Start: {task.startTime}h</Text>
-        <Text style={styles.taskDetail}>End: {task.endTime}h</Text>
+    );
+
+    return (
+      <View style={styles.taskCard}>
+        <View style={styles.taskCardContent}>
+          <View>
+            <Text style={styles.taskTitle}>{task.job_description}</Text>
+            <Text style={styles.taskDetail}>
+              Duration: {task.duration}h | Deadline: {task.deadline}h
+            </Text>
+            <Text style={styles.taskDetail}>Laxity: {task.laxity}h</Text>
+          </View>
+          <View style={styles.taskTiming}>
+            <Text style={styles.taskDetail}>Start: {task.startTime}h</Text>
+            <Text style={styles.taskDetail}>End: {task.endTime}h</Text>
+            <TouchableOpacity 
+              style={styles.reviewButton}
+              onPress={() => setModalVisible(true)}
+            >
+              <Text style={styles.reviewButtonText}>Add Review</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Add Your Review</Text>
+              <StarRating />
+              <TextInput
+                style={styles.input}
+                placeholder="Write your review here..."
+                multiline
+                value={comment}
+                onChangeText={setComment}
+              />
+              <View style={styles.modalButtons}>
+                <TouchableOpacity 
+                  style={[styles.button, styles.cancelButton]}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text style={styles.buttonText}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  style={[styles.button, styles.submitButton]}
+                  onPress={handleSubmitReview}
+                >
+                  <Text style={styles.buttonText}>Submit</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
-    </View>
-  </View>
-);
+    );
+  };
+  
 
 export default function Test() {
   const [scheduledTasks, setScheduledTasks] = useState([]);
@@ -203,4 +332,69 @@ const styles = StyleSheet.create({
   taskTiming: {
     alignItems: "flex-end",
   },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 10,
+    height: 100,
+    textAlignVertical: 'top',
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  button: {
+    padding: 10,
+    borderRadius: 5,
+    width: '45%',
+  },
+  cancelButton: {
+    backgroundColor: '#ccc',
+  },
+  submitButton: {
+    backgroundColor: '#4f46e5',
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: '500',
+  },
+  reviewButton: {
+    backgroundColor: '#4f46e5',
+    padding: 5,
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  reviewButtonText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  starContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  starText: {
+    fontSize: 30,
+    marginHorizontal: 2,
+  }
 });
