@@ -3,8 +3,8 @@ import { ServiceType } from "../utils/enum";
 const CARWASH_DATA = [
   {
     id: 1,
-    latitude: 2.9205118608687073,
-    longitude: 101.63704000089737,
+    latitude: 3.065161,
+    longitude: 101.504936,
     title: "Lake Garden",
     reviews: [
       { user: "Abu", rating: 5, comment: "good2" },
@@ -19,8 +19,8 @@ const CARWASH_DATA = [
   },
   {
     id: 2,
-    latitude: 2.921018224553574,
-    longitude: 101.63813901364176,
+    latitude: 3.071418, 
+    longitude: 101.506460,
     title: "Lake Jen Car",
     reviews: [
       {
@@ -43,8 +43,8 @@ const CARWASH_DATA = [
   },
   {
     id: 3,
-    latitude: 2.9221,
-    longitude: 101.6392,
+    latitude: 3.070797, 
+    longitude: 101.499786,
     title: "Rapid Shine",
     reviews: [
       { user: "John", rating: 4, comment: "Quick service but a bit pricey." },
@@ -59,8 +59,8 @@ const CARWASH_DATA = [
   },
   {
     id: 4,
-    latitude: 2.9233,
-    longitude: 101.6403,
+    latitude: 3.067904, 
+    longitude: 101.498692,
     title: "Super Wash Hub",
     reviews: [
       {
@@ -79,8 +79,8 @@ const CARWASH_DATA = [
   },
   {
     id: 5,
-    latitude: 2.9244,
-    longitude: 101.6414,
+    latitude: 3.068290, 
+    longitude: 101.508949,
     title: "Pristine Auto Care",
     reviews: [
       {
@@ -102,8 +102,8 @@ const CARWASH_DATA = [
   },
   {
     id: 6,
-    latitude: 2.9255,
-    longitude: 101.6425,
+    latitude: 3.072982, 
+    longitude: 101.498434,
     title: "Elite Car Spa",
     reviews: [
       { user: "Sam", rating: 4, comment: "Efficient and affordable." },

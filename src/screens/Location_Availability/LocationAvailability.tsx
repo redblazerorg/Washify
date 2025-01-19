@@ -115,6 +115,11 @@ const LocationAvailability = () => {
   };
 
   const handleAdd = () => {
+    if (!selectedMarker || !selectedService || !selectedDateInfo) {
+      alert('Please select a location, service, and date');
+      return;
+    }
+
     const newAppointment: Appointment = {
       id: appointments.length + 1,
       job_description: selectedService?.service || "",
@@ -122,8 +127,13 @@ const LocationAvailability = () => {
       duration: selectedService?.duration || 0,
       deadline: selectedDateInfo.daysDifference * 24,
       laxity: 0, //default to 0
+      carwash_id: selectedMarker.id
     };
+
     addAppointment(newAppointment);
+    setOpenSheet(false); // Close the sheet after adding
+    setSelectedService(null); // Reset selected service
+    alert('Appointment added successfully!');
   };
 
   const defaultDate = selectedDateInfo?.date

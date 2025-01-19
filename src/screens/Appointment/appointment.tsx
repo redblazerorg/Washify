@@ -46,16 +46,49 @@ const TaskCard = ({ task }: any) => {
   const [comment, setComment] = useState('');
   const { user } = useAuth();
 
-  const handleSubmitReview = () => {
+  const handleSubmitReview = async () => {
     if (rating === 0) {
       alert('Please select a rating');
       return;
     }
-    
-    alert('Review submitted successfully!');
-    setModalVisible(false);
-    setRating(0);
-    setComment('');
+
+    try {
+      // Get existing carwash data
+      const carwashDataJson = await AsyncStorage.getItem('carwash_data');
+      let carwashData = carwashDataJson ? JSON.parse(carwashDataJson) : CARWASH_DATA;
+
+      // Find the carwash and add the review
+      const carwashIndex = carwashData.findIndex((cw: any) => cw.id === task.carwash_id);
+      
+      if (carwashIndex !== -1) {
+        const newReview = {
+          user: user?.name || 'Anonymous',
+          rating,
+          comment,
+          date: new Date().toISOString()
+        };
+
+        // Add the new review to the carwash's reviews array
+        carwashData[carwashIndex].reviews.push(newReview);
+
+        console.log('New review being added:', newReview);
+        console.log('Updated carwash reviews:', carwashData[carwashIndex].reviews);
+        
+        // Save updated data back to AsyncStorage
+        await AsyncStorage.setItem('carwash_data', JSON.stringify(carwashData));
+        
+        // Reset form and close modal
+        setModalVisible(false);
+        setRating(0);
+        setComment('');
+        alert('Review submitted successfully!');
+      } else {
+        alert('Could not find the carwash to review');
+      }
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      alert('Failed to submit review');
+    }
   };
 
   // const handleSubmitReview = async () => {

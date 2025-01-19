@@ -8,6 +8,7 @@ export interface Appointment {
   duration: number;
   deadline: number;
   laxity: number;
+  carwash_id: number;
 }
 
 // Define the context type
