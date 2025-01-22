@@ -226,7 +226,7 @@ export default function Test() {
 
       while (tasks.length > 0) {
         tasks.forEach((task) => {
-          task.laxity = task.deadline - (time + task.duration);
+          task.laxity = task.deadline - (time + task.duration); //convert to minutes
         });
 
         tasks.sort((a, b) => a.laxity - b.laxity);
